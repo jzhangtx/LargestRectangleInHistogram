@@ -6,21 +6,15 @@
 
 int GetArea(const std::vector<int>& heights, size_t index)
 {
-    int minHeight = 0;
-    int count = 0;
-    int area = 0;
-    for (size_t i = index; i < heights.size(); ++i)
+    int minHeight = heights[index];
+    int area = heights[index];
+    for (size_t i = index+1; i < heights.size(); ++i)
     {
         if (heights[i] == 0)
             break;
 
-        count++;
-        if (minHeight == 0)
-            minHeight = heights[i];
-        else
-            minHeight = std::min(minHeight, heights[i]);
-
-        area = std::max(area, minHeight * count);
+        minHeight = std::min(minHeight, heights[i]);
+        area = std::max(area, minHeight * static_cast<int>(i - index + 1));
     }
 
     return area;
